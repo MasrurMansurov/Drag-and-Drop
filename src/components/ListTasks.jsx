@@ -5,16 +5,16 @@ import toast from 'react-hot-toast'
 
 
 const ListTasks = ({tasks, setTasks}) => {
-    const [todos, setTodos] = useState([])
+    const [todo, setTodo] = useState([])
     const [inProgress, setInProgress] = useState([])
     const [closed, setClosed] = useState([])
 
     useEffect(() => {
-        const fTodos = tasks.filter((task) => task.status === 'todo')
-        const fInProgress = tasks.filter((task) => task.status === 'inprogress')
-        const fClosed = tasks.filter((task) => task.status === 'closed')
+        const fTodo = tasks.filter((task) => task.status === 'todo')
+        const fInProgress = tasks.filter((task) => task.status === 'inprogress') 
+        const fClosed = tasks.filter((task) => task.status === 'closed') 
 
-        setTodos(fTodos)
+        setTodo(fTodo)
         setInProgress(fInProgress)
         setClosed(fClosed)
     },[tasks])
@@ -29,7 +29,7 @@ const ListTasks = ({tasks, setTasks}) => {
       status={status} 
       tasks={tasks} 
       setTasks={setTasks} 
-      todos={todos} 
+      todo={todo} 
       inProgress={inProgress} 
       closed={closed} 
       />
@@ -41,7 +41,7 @@ const ListTasks = ({tasks, setTasks}) => {
 export default ListTasks
 
 
-const Section = ({status, tasks, setTasks, todos, inProgress, closed}) => {
+const Section = ({status, tasks, setTasks, todo, inProgress, closed}) => {
 
     const [{isOver}, drop] = useDrop(() => ({
         accept: 'task',
@@ -53,7 +53,7 @@ const Section = ({status, tasks, setTasks, todos, inProgress, closed}) => {
 
     let text = 'Todo'
     let bg = 'bg-slate-500'
-    let tasksToMap = todos
+    let tasksToMap = todo
 
     if(status === 'inprogress'){
         text = 'In Progress'
@@ -119,7 +119,7 @@ const Task = ({task, tasks, setTasks}) => {
         })
     }))
 
-    console.log(isDragging);
+
     const handleRemove = (id) => {
         const fTasks = tasks.filter((t) => t.id !== id)
         localStorage.setItem('tasks', JSON.stringify(fTasks))
