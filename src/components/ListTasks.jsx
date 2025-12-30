@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import PropTypes from 'prop-types'
 import { useDrag, useDrop } from 'react-dnd'
 import toast from 'react-hot-toast'
 
@@ -38,8 +39,19 @@ const ListTasks = ({tasks, setTasks}) => {
   )
 }
 
+ListTasks.propTypes = {
+  tasks: PropTypes.array.isRequired,
+  setTasks: PropTypes.func.isRequired
+}
+
 export default ListTasks
 
+
+const taskShape = PropTypes.shape({
+  id: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  status: PropTypes.string.isRequired
+})
 
 const Section = ({status, tasks, setTasks, todo, inProgress, closed}) => {
 
@@ -99,6 +111,15 @@ const Section = ({status, tasks, setTasks, todo, inProgress, closed}) => {
     )
 }
 
+Section.propTypes = {
+  status: PropTypes.string.isRequired,
+  tasks: PropTypes.arrayOf(taskShape).isRequired,
+  setTasks: PropTypes.func.isRequired,
+  todo: PropTypes.arrayOf(taskShape).isRequired,
+  inProgress: PropTypes.arrayOf(taskShape).isRequired,
+  closed: PropTypes.arrayOf(taskShape).isRequired
+}
+
 
 const Header = ({text, bg, count}) => {
     return (
@@ -106,6 +127,12 @@ const Header = ({text, bg, count}) => {
         {text}{' '}<div className='ml-2 bg-white w-5 h-5 text-black rounded-full flex items-center justify-center'>{count}</div>
     </div>
     )
+}
+
+Header.propTypes = {
+  text: PropTypes.string.isRequired,
+  bg: PropTypes.string.isRequired,
+  count: PropTypes.number.isRequired
 }
 
 
@@ -141,3 +168,8 @@ const Task = ({task, tasks, setTasks}) => {
     )
 }
 
+Task.propTypes = {
+  task: taskShape.isRequired,
+  tasks: PropTypes.arrayOf(taskShape).isRequired,
+  setTasks: PropTypes.func.isRequired
+}

@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
+import PropTypes from 'prop-types'
 import toast from 'react-hot-toast'
 import { v4 as uuidv4 } from 'uuid'
 
@@ -55,6 +56,10 @@ const CreateTask = ({setTasks}) => {
         </button>
     </form>
   )
+}
+
+CreateTask.propTypes = {
+  setTasks: PropTypes.func.isRequired
 }
 
 export default CreateTask
